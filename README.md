@@ -20,7 +20,7 @@ It is set-up to read 10 Pt-1000 platinum resistance thermometers using an Agilen
 
 ## Screenshot
 
-![screenshot](https://raw.githubusercontent.com/INRIM/BBRMon/main/screenshot.png?token=AUHXZIJW654YM3633BCB5D3A3NAVA)
+![screenshot](https://github.com/INRIM/BBRMon/blob/main/screenshot.png)
 
 ## How to cite 
 
