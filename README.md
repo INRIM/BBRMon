@@ -17,6 +17,7 @@ The script requires the following python packages:
 - [`pyvisa`](https://pyvisa.readthedocs.io/en/latest/)
 
 It is set-up to read 10 Pt-1000 platinum resistance thermometers using an Agilent 34970A digital multimiter.
+Connection to the instrument is hard-coded.
 
 ## Screenshot
 
