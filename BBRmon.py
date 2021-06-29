@@ -1,57 +1,44 @@
 # -*- coding: utf-8 -*-
-
-#    BBRMonitor
-#    Copyright (C) 2021  Marco Pizzocaro <m.pizzocaro@inrim.it>
 #
+# BBRMom
+# Copyright (C) 2021  Marco Pizzocaro - Istituto Nazionale di Ricerca Metrologica (INRIM)
 #
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+#
+# SPDX-License-Identifier: MIT
 
 
-"""
-BBRmonitor
-~~~~~~~~~~
-
-Monitor the temperature of the physics package of It-Yb1
-
-*Changelog*
-
-20210507
-* fixed bug on the update of y2 axis scale (y2 scale on panel 2 and 3 were not following the autoscale of y)
-
-20210324 
-* removed  GUI:
-	now it uses a matplotlib plot instead of of a matplolib plot in a canvas in a SimpleGUI window
-	similar to what Pyblab.scope does
-	but it is not threaded in any way
-
-20210309 
-* inital test from the old Tmonitor
-
-
-@author: Marco Pizzocaro
-"""
 
 import pyvisa as visa
 import time
 from datetime import date, datetime
 import os.path
-import threading
 from collections import deque
 
 from numpy import *
 
-#import PySimpleGUI as sg
-
-# matplotlib integration from https://pysimplegui.readthedocs.io/en/latest/cookbook/
-# https://github.com/PySimpleGUI/PySimpleGUI/blob/master/DemoPrograms/Demo_Matplotlib.py
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, FigureCanvasAgg
-from matplotlib.figure import Figure
 from matplotlib.pyplot import *
 ioff()
 import matplotlib.dates as mdates
 
 
 import __main__
-__version__ = '20210324'
 
 rm = visa.ResourceManager()
 instr = rm.open_resource('ASRL33::INSTR', parity=visa.constants.Parity.none, data_bits=8, stop_bits=visa.constants.StopBits.one, baud_rate=57600, flow_control=visa.constants.VI_ASRL_FLOW_NONE)
@@ -78,7 +65,6 @@ instr.write('*ese 0'); time.sleep(0.1)
 
 # timeto wait for new data
 wait = 79.
-
 
 
 fig, (ax1, ax2, ax3) = subplots(3, 1, sharex=True, gridspec_kw={'height_ratios': [2.5, 1., 1.]})
@@ -127,16 +113,6 @@ fig.show()
 fig.canvas.draw()
 
 
-# # canvas
-# canvas_elem = window['canvas']
-# canvas = canvas_elem.TKCanvas
-# figure_canvas_agg = FigureCanvasTkAgg(fig, canvas)
-# figure_canvas_agg.draw()
-# figure_canvas_agg.get_tk_widget().pack(side='top', fill='both', expand=1)
-
-
-
-
 # output
 path = os.path.join("Temperature Data")
 path = path
@@ -146,15 +122,11 @@ if not os.path.exists(path):
 	os.makedirs(path)
 
 
-
-
-
 # THEBUFFER
 N = int(86400//wait)
 tbuffer  = deque([], N)
 buffer = deque([], N)
 newdata = False
-
 
 
 mlabels = ['below-north', 'below-east', 'over-east', 'over-south', 'below-south', 'below-west', 'over-west', 'over-north', 'far-from-oven', 'close-to-oven']
@@ -229,7 +201,6 @@ while is_running:
 		pause(0.2) # this is plt.pause -- time.sleep() does not work because it is blocking and messes up with the live plot
 		#time.sleep(0.2)
 	
-#	pause(wait) # this is plt.pause -- time.sleep() does not work because it is blocking and messes up with the live plot
 	if not fignum_exists(1):
 		break
 
@@ -265,9 +236,7 @@ while is_running:
 	tt = list(tbuffer)
 	tt = array(tt).astype('datetime64[s]')
 
-	# wrong math
-	#av = mean(data, axis=0)
-	#u = (amax(data, axis=0) - amin(data, axis=0))/sqrt(12.)
+
 	Tmax = amax(data, axis=0)
 	Tmin = amin(data, axis=0)
 	T = (Tmax+Tmin)/2
