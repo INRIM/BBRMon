@@ -28,7 +28,7 @@
 import pyvisa as visa
 import time
 from datetime import date, datetime
-import os.path
+import os
 from collections import deque
 
 from numpy import *
@@ -114,7 +114,7 @@ fig.canvas.draw()
 
 
 # output
-path = os.path.join("Temperature Data")
+path = os.path.join("..","Temperature Data")
 path = path
 today = date.today()
 
@@ -224,6 +224,9 @@ while is_running:
 	#print(temp)
 	if filo:
 		filo.writelines(tempstring + '\n')
+		# force the buffer to be written to disk
+		filo.flush()
+		os.fsync(filo.fileno())
 		print(tempstring)
 
 
