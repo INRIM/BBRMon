@@ -29,6 +29,10 @@ If you find this useful, please cite our original paper:
 
 Pizzocaro, Bregolin, Barbieri,  Rauf,  Levi, & Calonico, [Absolute frequency measurement of the 1S0-3P0 transition of 171Yb with a link to international atomic time](http://doi.org/10.1088/1681-7575/ab50e8), Metrologia **57**, 035007 (2020)
 
+## Acknowledgments
+We acknowledge funding from the European Metrology Program for Innovation and Research (EMPIR) project 18SIB05 ROCIT.
+The EMPIR initiative is cofunded by the European Union’s Horizon 2020 research and innovation programme and the EMPIR Participating States.
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
